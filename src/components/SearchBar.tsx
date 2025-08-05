@@ -10,20 +10,33 @@ interface Props {
 
 const SearchBar = ({ onResults, showRepo }: Props) => {
   const [query, setQuery] = useState('');
-  const { data, isLoading, isError } = useGitHubSearch(query);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { data, isLoading, isError } = useGitHubSearch(query);
 
   useEffect(() => {
     if (data) {
       onResults(data);
-    } else if (query.length === 0) {
+    } else if (query === '') {
       onResults([]);
     }
   }, [data, query, onResults]);
 
   const handleSearch = () => {
-    const value = inputRef.current?.value.trim() || null;
+    const value = inputRef.current?.value.trim();
     if (value) setQuery(value);
+  };
+
+  const renderStatusMessage = () => {
+    if (isError) return <ErrorMessage />;
+    if (!data) return null;
+    if (data.length === 0) return <StatusMessage text="No users found." />;
+    if (!showRepo)
+      return (
+        <StatusMessage
+          text={`Showing users for "${inputRef.current?.value.trim()}"`}
+        />
+      );
+    return null;
   };
 
   return (
@@ -34,39 +47,35 @@ const SearchBar = ({ onResults, showRepo }: Props) => {
           type="text"
           placeholder="Enter username"
           className="input-search"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleSearch();
-          }}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
         />
         <button
           onClick={handleSearch}
           className="btn-search"
           disabled={isLoading}
         >
-          {isLoading ? <FaSpinner aria-label="loading spinner" className="animate-spin" /> : 'Search'}
+          {isLoading ? (
+            <FaSpinner aria-label="loading spinner" className="animate-spin" />
+          ) : (
+            'Search'
+          )}
         </button>
       </div>
-      {isError && (
-        <div className="my-4">
-          <p className="text-red">Error fetching users.</p>
-        </div>
-      )}
-      {data &&
-        (data.length > 0 ? (
-          !showRepo && (
-            <div className="my-4">
-              <p className="text-gray-500">
-                Showing users for "{inputRef.current?.value.trim()}"
-              </p>
-            </div>
-          )
-        ) : (
-          <div className="my-4">
-            <p className="text-gray-500">No users found.</p>
-          </div>
-        ))}
+      {renderStatusMessage()}
     </>
   );
 };
+
+const ErrorMessage = () => (
+  <div className="my-4">
+    <p className="text-red">Error fetching users.</p>
+  </div>
+);
+
+const StatusMessage = ({ text }: { text: string }) => (
+  <div className="my-4">
+    <p className="text-theme-text-3">{text}</p>
+  </div>
+);
 
 export default SearchBar;

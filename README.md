@@ -39,14 +39,17 @@ src/
 │   ├── useGitHubSearch.ts    # Custom hook for searching GitHub users
 │   ├── useGitHubRepos.ts     # Custom hook for fetching user repositories
 │
+├── styles/
+│   ├── index.css             # Tailwind base styles
+│   ├── components.css        # Apply custom class for components
+│
 ├── types/
 │   └── github.d.ts           # Type definitions for GitHub API responses
 │
 ├── __tests__/                # Unit and integration tests
 │
 ├── App.tsx                   # Root component
-├── main.tsx                  # React root entry
-└── index.css                 # Tailwind base styles
+└── main.tsx                  # React root entry
 ```
 
 ---
@@ -88,7 +91,7 @@ npm install
 npm run dev
 ```
 
-App will be available at: [http://localhost:5173](http://localhost:5173)
+App will be available at: [http://localhost:5173/github-repositories-explorer/](http://localhost:5173/github-repositories-explorer/)
 
 ---
 
