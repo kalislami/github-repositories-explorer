@@ -1,6 +1,6 @@
 @layer components {
   .btn-search {
-    @apply w-full sm:w-auto min-w-[120px] min-h-[50px] text-theme-text-4 mt-3 md:mt-0 p-3 rounded-sm bg-theme-blue hover:bg-blue-500 flex justify-center items-center;
+    @apply w-full sm:w-auto min-w-[120px] min-h-[50px] text-theme-text-4 mt-3 md:mt-0 p-3 rounded-sm bg-theme-blue md:hover:bg-blue-500 flex justify-center items-center;
   }
 
   .input-search {
@@ -8,6 +8,6 @@
   }
 
   .btn-userlist {
-    @apply w-full flex items-center justify-between gap-4 p-3 border-b last:border-none bg-theme-gray-1 hover:bg-gray-100 focus:outline-none mb-4 shadow;
+    @apply w-full flex items-center justify-between gap-4 p-3 border-b last:border-none bg-theme-gray-1 md:hover:bg-gray-100 focus:outline-none mb-4 shadow;
   }
 }
