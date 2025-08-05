@@ -76,7 +76,7 @@ Test coverage includes:
 ### 1. Clone the repo
 ```bash
 git clone https://github.com/kalislami/github-repositories-explorer.git
-cd github-explorer
+cd github-repositories-explorer
 ```
 
 ### 2. Install dependencies
